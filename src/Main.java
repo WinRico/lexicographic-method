@@ -1,6 +1,18 @@
 import java.util.Map;
 
 public class Main {
+    public static double[][] AddRow(double[][] table, double[] newValues) {
+        double [] con = {0,0,0,0,0,0};
+        double[][] newTable = new double[table.length + 1][table[0].length];
+        // Копіювання існуючого масиву `table` в новий масив `newTable`
+        for (int i = 0; i < table.length; i++) {
+            System.arraycopy(table[i], 0, newTable[i], 0, table[i].length);
+        }
+        System.arraycopy(con, 0, newTable[newTable.length-1], 0, con.length-1);
+        table = newTable;
+        changeLastRow(table,newValues);
+        return table;
+    }
     public static void changeLastRow(double[][] array, double[] newValues) {
         if (array.length < 1 || newValues.length != array[0].length) {
             // Перевірка на наявність рядків у масиві та на відповідність розмірів
@@ -47,15 +59,8 @@ public class Main {
                 {-1,  2, 0, 0,-1,  4}};
         double[][] table1= Canon.result(table, table.length, table[0].length);
         double [] con = {0,0,0,0,0,0};
-        double[][] newTable = new double[table.length + 1][table[0].length];
-        // Копіювання існуючого масиву `table` в новий масив `newTable`
-        for (int i = 0; i < table.length; i++) {
-            System.arraycopy(table[i], 0, newTable[i], 0, table[i].length);
-        }
-        System.arraycopy(con, 0, newTable[newTable.length-1], 0, con.length-1);
-        table = newTable;
         double[] newFun = { 1,  4,-4, 0, 0,  0};
-        changeLastRow(table,newFun);
+        table = AddRow(table,newFun);
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {
                 System.out.print(table[i][j] + " ");
